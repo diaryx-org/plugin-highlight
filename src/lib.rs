@@ -49,10 +49,10 @@ const HIGHLIGHT_CSS: &str = r#"
 #[plugin_fn]
 pub fn manifest(_input: String) -> FnResult<String> {
     let manifest = GuestManifest::new(
-        "diaryx.highlight".into(),
-        "Highlight".into(),
-        env!("CARGO_PKG_VERSION").into(),
-        "Colored highlight syntax with ==text== and =={color}text==".into(),
+        "diaryx.highlight",
+        "Highlight",
+        env!("CARGO_PKG_VERSION"),
+        "Colored highlight syntax with ==text== and =={color}text==",
         vec!["editor_extension".into()],
     )
     .ui(vec![serde_json::json!({
