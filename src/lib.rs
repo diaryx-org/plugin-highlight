@@ -48,53 +48,50 @@ const HIGHLIGHT_CSS: &str = r#"
 /// Return the plugin manifest.
 #[plugin_fn]
 pub fn manifest(_input: String) -> FnResult<String> {
-    let manifest = GuestManifest {
-        protocol_version: CURRENT_PROTOCOL_VERSION,
-        id: "diaryx.highlight".into(),
-        name: "Highlight".into(),
-        version: env!("CARGO_PKG_VERSION").into(),
-        description: "Colored highlight syntax with ==text== and =={color}text==".into(),
-        capabilities: vec!["editor_extension".into()],
-        ui: vec![serde_json::json!({
-            "slot": "EditorExtension",
-            "extension_id": "coloredHighlight",
-            "node_type": "InlineMark",
-            "markdown": {
-                "level": "Inline",
-                "open": "==",
-                "close": "==",
-                "attribute_syntax": {
-                    "attribute": "color",
-                    "open": "{",
-                    "close": "}",
-                    "position": "after_open"
-                }
-            },
-            "html_tag": "mark",
-            "base_css_class": "highlight-mark",
-            "attributes": [{
-                "name": "color",
-                "default": "yellow",
-                "html_attribute": "data-highlight-color",
-                "valid_values": ["red", "orange", "yellow", "green", "cyan",
-                                 "blue", "violet", "pink", "brown", "grey"],
-                "css_class_prefix": "highlight-"
-            }],
-            "css": HIGHLIGHT_CSS,
-            "keyboard_shortcut": "Mod-Shift-h",
-            "toolbar": {
-                "icon": "highlighter",
-                "label": "Highlight"
-            },
-            "render_export": null,
-            "edit_mode": null,
-            "click_behavior": null,
-            "insert_command": null
-        })],
-        commands: vec![],
-        cli: vec![],
-        requested_permissions: None,
-    };
+    let manifest = GuestManifest::new(
+        "diaryx.highlight".into(),
+        "Highlight".into(),
+        env!("CARGO_PKG_VERSION").into(),
+        "Colored highlight syntax with ==text== and =={color}text==".into(),
+        vec!["editor_extension".into()],
+    )
+    .ui(vec![serde_json::json!({
+        "slot": "EditorExtension",
+        "extension_id": "coloredHighlight",
+        "node_type": "InlineMark",
+        "markdown": {
+            "level": "Inline",
+            "open": "==",
+            "close": "==",
+            "attribute_syntax": {
+                "attribute": "color",
+                "open": "{",
+                "close": "}",
+                "position": "after_open"
+            }
+        },
+        "html_tag": "mark",
+        "base_css_class": "highlight-mark",
+        "attributes": [{
+            "name": "color",
+            "default": "yellow",
+            "html_attribute": "data-highlight-color",
+            "valid_values": ["red", "orange", "yellow", "green", "cyan",
+                             "blue", "violet", "pink", "brown", "grey"],
+            "css_class_prefix": "highlight-"
+        }],
+        "css": HIGHLIGHT_CSS,
+        "keyboard_shortcut": "Mod-Shift-h",
+        "toolbar": {
+            "icon": "highlighter",
+            "label": "Highlight"
+        },
+        "render_export": null,
+        "edit_mode": null,
+        "click_behavior": null,
+        "insert_command": null
+    })])
+    .min_app_version("1.4.0");
 
     Ok(serde_json::to_string(&manifest)?)
 }
