@@ -1,0 +1,14 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  release:
+    uses: diaryx-org/.github/.github/workflows/reusable-plugin-release.yml@main
+    with:
+      plugin-id: diaryx.highlight
+      crate-name: diaryx_highlight_extism
+    secrets:
+      REGISTRY_PAT: ${{ secrets.REGISTRY_PAT }}
