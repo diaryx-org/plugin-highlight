@@ -82,6 +82,10 @@ pub fn manifest(_input: String) -> FnResult<String> {
             }],
             "css": HIGHLIGHT_CSS,
             "keyboard_shortcut": "Mod-Shift-h",
+            "toolbar": {
+                "icon": "highlighter",
+                "label": "Highlight"
+            },
             "render_export": null,
             "edit_mode": null,
             "click_behavior": null,
